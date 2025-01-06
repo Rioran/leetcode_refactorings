@@ -12,6 +12,11 @@ def get_increasing_char_occurences(char_counter: Counter) -> list[tuple[int, str
     return sorted([(occurrences, char) for char, occurrences in char_counter.items()])
 
 
+def spread_char_across_slots(char_slots, char, top_occurrence):
+    for i in range(top_occurrence):
+        char_slots[i] = char_slots[i] + char
+
+
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
@@ -23,8 +28,7 @@ class Solution:
         while increasing_char_occurences:
             occurrences, char = increasing_char_occurences.pop()
             if occurrences == top_occurrence:
-                for i in range(top_occurrence):
-                    char_slots[i] = char_slots[i] + char
+                spread_char_across_slots(char_slots, char, top_occurrence)
             else:
                 while occurrences:
                     slot = slot % (top_occurrence - 1)
