@@ -17,11 +17,11 @@ def spread_char_across_slots(char_slots, char):
         char_slots[i] += char
 
 
-def spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence):
+def spread_char_consequently(char_slots, slot, char, occurrences):
     current_slot = slot
 
     while occurrences:
-        current_slot = current_slot % (top_occurrence - 1)
+        current_slot = current_slot % (len(char_slots) - 1)
         char_slots[current_slot] = char_slots[current_slot] + char
         occurrences -= 1
         current_slot += 1
@@ -43,7 +43,7 @@ def spread_chars(char_slots, increasing_char_occurences):
         if occurrences == top_occurrence:
             spread_char_across_slots(char_slots, char)
         else:
-            slot = spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence)
+            slot = spread_char_consequently(char_slots, slot, char, occurrences)
 
 
 class Solution:
