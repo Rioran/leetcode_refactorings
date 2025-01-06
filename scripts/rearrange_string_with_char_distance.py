@@ -17,21 +17,21 @@ class Solution:
         counter = Counter(text)
         increasing_char_occurences = get_increasing_char_occurences(counter)
         top_occurrence = increasing_char_occurences[-1][0]
-        slots = ["" for _ in range(top_occurrence)]
+        char_slots = ["" for _ in range(top_occurrence)]
 
         slot = 0
         while increasing_char_occurences:
             occurrences, char = increasing_char_occurences.pop()
             if occurrences == top_occurrence:
                 for i in range(top_occurrence):
-                    slots[i] = slots[i] + char
+                    char_slots[i] = char_slots[i] + char
             else:
                 while occurrences:
                     slot = slot % (top_occurrence - 1)
-                    slots[slot] = slots[slot] + char
+                    char_slots[slot] = char_slots[slot] + char
                     occurrences -= 1
                     slot += 1
         for i in range(top_occurrence - 1):  # up until last slot
-            if len(slots[i]) < char_distance:
+            if len(char_slots[i]) < char_distance:
                 return ""
-        return "".join(slots)
+        return "".join(char_slots)
