@@ -15,13 +15,13 @@ def get_increasing_char_occurences(char_counter: Counter) -> list[tuple[int, str
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
-        items = get_increasing_char_occurences(counter)
-        maxFreq = items[-1][0]
+        increasing_char_occurences = get_increasing_char_occurences(counter)
+        maxFreq = increasing_char_occurences[-1][0]
         slots = ["" for _ in range(maxFreq)]
 
         slot = 0
-        while (items):
-            freq, ch = items.pop()
+        while (increasing_char_occurences):
+            freq, ch = increasing_char_occurences.pop()
             if (freq == maxFreq):
                 for i in range(maxFreq):
                     slots[i] = slots[i] + ch
