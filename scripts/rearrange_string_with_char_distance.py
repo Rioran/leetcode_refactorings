@@ -33,8 +33,10 @@ def detect_slots_overflow(char_slots, char_distance):
     return any(map(lambda x: len(x) < char_distance, char_slots[:-1]))
 
 
-def spread_chars(char_slots, increasing_char_occurences, top_occurrence):
+def spread_chars(char_slots, increasing_char_occurences):
     slot = 0
+    top_occurrence = len(char_slots)
+
     while increasing_char_occurences:
         occurrences, char = increasing_char_occurences.pop()
 
@@ -51,7 +53,7 @@ class Solution:
         top_occurrence = increasing_char_occurences[-1][0]
         char_slots = ["" for _ in range(top_occurrence)]
 
-        spread_chars(char_slots, increasing_char_occurences, top_occurrence)
+        spread_chars(char_slots, increasing_char_occurences)
 
         if detect_slots_overflow(char_slots, char_distance):
             return ""
