@@ -21,14 +21,14 @@ class Solution:
 
         slot = 0
         while increasing_char_occurences:
-            freq, ch = increasing_char_occurences.pop()
+            freq, char = increasing_char_occurences.pop()
             if freq == top_occurrence:
                 for i in range(top_occurrence):
-                    slots[i] = slots[i] + ch
+                    slots[i] = slots[i] + char
             else:
                 while freq:
                     slot = slot % (top_occurrence - 1)
-                    slots[slot] = slots[slot] + ch
+                    slots[slot] = slots[slot] + char
                     freq -= 1
                     slot += 1
         for i in range(top_occurrence - 1):  # up until last slot
