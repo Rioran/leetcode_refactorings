@@ -9,8 +9,8 @@ import collections
 
 
 class Solution:
-    def rearrangeString(self, s: str, k: int) -> str:
-        counter = collections.Counter(s)
+    def rearrangeString(self, text: str, k: int) -> str:
+        counter = collections.Counter(text)
         items = sorted([(freq, ch) for ch, freq in counter.items()])
         maxFreq = items[-1][0]
         slots = ["" for _ in range(maxFreq)]
