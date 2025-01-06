@@ -31,7 +31,6 @@ def detect_slots_overflow(char_slots, char_distance):
 
 def spread_chars(char_slots, decreasing_char_occurences):
     slot = 0
-    top_occurrence = len(char_slots)
 
     for occurrences, char in decreasing_char_occurences:
         slot = spread_char_consequently(char_slots, slot, char, occurrences)
