@@ -14,6 +14,10 @@ class CharSlots:
         self.slots = [""] * slots_count
         self.current_slot = 0
 
+    def add_char_to_active_slot(self, char):
+        self.slots[self.current_slot] += char
+        self.current_slot += 1
+
 
 def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
     return list(map(lambda x: x[::-1], Counter(text).most_common()))
@@ -24,8 +28,7 @@ def spread_char_consequently(char_slots: CharSlots, char, occurrences):
 
     for _ in range(occurrences):
         char_slots.current_slot = char_slots.current_slot % (char_slots.slots_count - dont_use_last_slot)
-        char_slots.slots[char_slots.current_slot] = char_slots.slots[char_slots.current_slot] + char
-        char_slots.current_slot += 1
+        char_slots.add_char_to_active_slot(char)
 
 
 def detect_slots_overflow(char_slots, char_distance):
