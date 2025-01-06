@@ -20,13 +20,13 @@ class Solution:
         slots = ["" for _ in range(top_occurrence)]
 
         slot = 0
-        while (increasing_char_occurences):
+        while increasing_char_occurences:
             freq, ch = increasing_char_occurences.pop()
-            if (freq == top_occurrence):
+            if freq == top_occurrence:
                 for i in range(top_occurrence):
                     slots[i] = slots[i] + ch
             else:
-                while (freq):
+                while freq:
                     slot = slot % (top_occurrence - 1)
                     slots[slot] = slots[slot] + ch
                     freq -= 1
