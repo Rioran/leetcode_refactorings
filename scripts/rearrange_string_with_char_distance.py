@@ -36,9 +36,7 @@ def spread_chars(char_slots, increasing_char_occurences):
     slot = 0
     top_occurrence = len(char_slots)
 
-    while increasing_char_occurences:
-        occurrences, char = increasing_char_occurences.pop()
-
+    for occurrences, char in increasing_char_occurences[::-1]:
         if occurrences == top_occurrence:
             spread_char_across_slots(char_slots, char)
         else:
