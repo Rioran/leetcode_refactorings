@@ -24,10 +24,10 @@ def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
 
 
 def spread_char_consequently(char_slots: CharSlots, char, occurrences):
-    dont_use_last_slot = char_slots.slots_count != occurrences
+    skip_last_slot = char_slots.slots_count != occurrences
 
     for _ in range(occurrences):
-        char_slots.current_slot = char_slots.current_slot % (char_slots.slots_count - dont_use_last_slot)
+        char_slots.current_slot = char_slots.current_slot % (char_slots.slots_count - skip_last_slot)
         char_slots.add_char_to_active_slot(char)
 
 
