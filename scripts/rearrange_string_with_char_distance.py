@@ -19,16 +19,16 @@ def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
     return list(map(lambda x: x[::-1], Counter(text).most_common()))
 
 
-def spread_char_consequently(char_slots, slot, char, occurrences):
-    current_slot = slot
-    dont_use_last_slot = len(char_slots) != occurrences
+def spread_char_consequently(char_slots: CharSlots, char, occurrences):
+    current_slot = char_slots.current_slot
+    dont_use_last_slot = char_slots.slots_count != occurrences
 
     for _ in range(occurrences):
-        current_slot = current_slot % (len(char_slots) - dont_use_last_slot)
-        char_slots[current_slot] = char_slots[current_slot] + char
+        current_slot = current_slot % (char_slots.slots_count - dont_use_last_slot)
+        char_slots.slots[current_slot] = char_slots.slots[current_slot] + char
         current_slot += 1
 
-    return current_slot
+    char_slots.current_slot = current_slot
 
 
 def detect_slots_overflow(char_slots, char_distance):
@@ -41,7 +41,7 @@ class Solution:
         char_slots = CharSlots(slots_count=decreasing_char_occurences[0][0])
 
         for occurrences, char in decreasing_char_occurences:
-            char_slots.current_slot = spread_char_consequently(char_slots.slots, char_slots.current_slot, char, occurrences)
+            spread_char_consequently(char_slots, char, occurrences)
 
         if detect_slots_overflow(char_slots.slots, char_distance):
             return ""
