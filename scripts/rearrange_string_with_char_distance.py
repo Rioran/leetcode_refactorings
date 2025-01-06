@@ -20,10 +20,10 @@ class CharSlots:
         self.current_slot += 1
         self.current_slot = self.current_slot % (self.slots_count - self.skip_last_slot)
 
-    def spread_char_consequently(self, char, occurrences):
-        self.skip_last_slot = self.slots_count != occurrences
+    def spread_char_consequently(self, char, count):
+        self.skip_last_slot = self.slots_count != count
 
-        for _ in range(occurrences):
+        for _ in range(count):
             self.add_char_to_active_slot(char)
 
 
