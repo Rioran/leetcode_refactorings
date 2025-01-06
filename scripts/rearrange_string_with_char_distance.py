@@ -37,21 +37,25 @@ def detect_slots_overflow(char_slots, top_occurrence, char_distance):
     return False
 
 
+def spread_chars(char_slots, increasing_char_occurences, top_occurrence):
+    slot = 0
+    while increasing_char_occurences:
+        occurrences, char = increasing_char_occurences.pop()
+
+        if occurrences == top_occurrence:
+            spread_char_across_slots(char_slots, char, top_occurrence)
+        else:
+            slot = spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence)
+
+
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
         increasing_char_occurences = get_increasing_char_occurences(counter)
         top_occurrence = increasing_char_occurences[-1][0]
         char_slots = ["" for _ in range(top_occurrence)]
-        slot = 0
 
-        while increasing_char_occurences:
-            occurrences, char = increasing_char_occurences.pop()
-
-            if occurrences == top_occurrence:
-                spread_char_across_slots(char_slots, char, top_occurrence)
-            else:
-                slot = spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence)
+        spread_chars(char_slots, increasing_char_occurences, top_occurrence)
 
         if detect_slots_overflow(char_slots, top_occurrence, char_distance):
             return ""
