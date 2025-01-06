@@ -9,7 +9,7 @@ import collections
 
 
 class Solution:
-    def rearrangeString(self, text: str, k: int) -> str:
+    def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = collections.Counter(text)
         items = sorted([(freq, ch) for ch, freq in counter.items()])
         maxFreq = items[-1][0]
@@ -28,6 +28,6 @@ class Solution:
                     freq -= 1
                     slot += 1
         for i in range(maxFreq - 1):  # up until last slot
-            if len(slots[i]) < k:
+            if len(slots[i]) < char_distance:
                 return ""
         return "".join(slots)
