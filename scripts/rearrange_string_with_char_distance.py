@@ -13,16 +13,12 @@ def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
     return sorted([(occurrences, char) for char, occurrences in counter.items()], reverse=True)
 
 
-def spread_char_across_slots(char_slots, char):
-    for i in range(len(char_slots)):
-        char_slots[i] += char
-
-
 def spread_char_consequently(char_slots, slot, char, occurrences):
     current_slot = slot
+    dont_use_last_slot = len(char_slots) != occurrences
 
     for _ in range(occurrences):
-        current_slot = current_slot % (len(char_slots) - 1)
+        current_slot = current_slot % (len(char_slots) - dont_use_last_slot)
         char_slots[current_slot] = char_slots[current_slot] + char
         current_slot += 1
 
@@ -38,10 +34,7 @@ def spread_chars(char_slots, decreasing_char_occurences):
     top_occurrence = len(char_slots)
 
     for occurrences, char in decreasing_char_occurences:
-        if occurrences == top_occurrence:
-            spread_char_across_slots(char_slots, char)
-        else:
-            slot = spread_char_consequently(char_slots, slot, char, occurrences)
+        slot = spread_char_consequently(char_slots, slot, char, occurrences)
 
 
 class Solution:
