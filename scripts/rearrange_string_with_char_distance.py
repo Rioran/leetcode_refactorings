@@ -27,8 +27,8 @@ class CharSlots:
             self.add_char_to_active_slot(char)
 
 
-def get_decreasing_char_occurrences(text: str) -> list[tuple[int, str]]:
-    return list(map(lambda x: x[::-1], Counter(text).most_common()))
+def get_decreasing_char_occurrences(text: str) -> list[tuple[str, int]]:
+    return Counter(text).most_common()
 
 
 def detect_slots_overflow(char_slots, char_distance):
@@ -38,9 +38,9 @@ def detect_slots_overflow(char_slots, char_distance):
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         decreasing_char_occurrences = get_decreasing_char_occurrences(text)
-        char_slots = CharSlots(slots_count=decreasing_char_occurrences[0][0])
+        char_slots = CharSlots(slots_count=decreasing_char_occurrences[0][1])
 
-        for occurrences, char in decreasing_char_occurrences:
+        for char, occurrences in decreasing_char_occurrences:
             char_slots.spread_char_consequently(char, occurrences)
 
         if detect_slots_overflow(char_slots.slots, char_distance):
