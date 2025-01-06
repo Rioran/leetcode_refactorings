@@ -14,7 +14,7 @@ def get_increasing_char_occurences(char_counter: Counter) -> list[tuple[int, str
 
 def spread_char_across_slots(char_slots, char, top_occurrence):
     for i in range(top_occurrence):
-        char_slots[i] = char_slots[i] + char
+        char_slots[i] += char
 
 
 def spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence):
