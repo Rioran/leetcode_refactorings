@@ -17,6 +17,14 @@ def spread_char_across_slots(char_slots, char, top_occurrence):
         char_slots[i] = char_slots[i] + char
 
 
+def spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence):
+    while occurrences:
+        slot = slot % (top_occurrence - 1)
+        char_slots[slot] = char_slots[slot] + char
+        occurrences -= 1
+        slot += 1
+
+
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
@@ -30,11 +38,7 @@ class Solution:
             if occurrences == top_occurrence:
                 spread_char_across_slots(char_slots, char, top_occurrence)
             else:
-                while occurrences:
-                    slot = slot % (top_occurrence - 1)
-                    char_slots[slot] = char_slots[slot] + char
-                    occurrences -= 1
-                    slot += 1
+                spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence)
         for i in range(top_occurrence - 1):  # up until last slot
             if len(char_slots[i]) < char_distance:
                 return ""
