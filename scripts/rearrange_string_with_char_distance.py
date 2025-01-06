@@ -5,13 +5,17 @@ Given a string text and an integer char_distance,
 rearrange text such that the same characters are at least distance char_distance from each other.
 If it is not possible to rearrange the string, return an empty string "".
 """
-import collections
+from collections import Counter
+
+
+def get_decreasing_char_occurences(char_counter: Counter) -> list[tuple[int, str]]:
+    return sorted([(occurrences, char) for char, occurrences in char_counter.items()])
 
 
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
-        counter = collections.Counter(text)
-        items = sorted([(occurrences, char) for char, occurrences in counter.items()])
+        counter = Counter(text)
+        items = get_decreasing_char_occurences(counter)
         maxFreq = items[-1][0]
         slots = ["" for _ in range(maxFreq)]
 
