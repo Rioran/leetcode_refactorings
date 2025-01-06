@@ -8,8 +8,9 @@ If it is not possible to rearrange the string, return an empty string "".
 from collections import Counter
 
 
-def get_decreasing_char_occurences(char_counter: Counter) -> list[tuple[int, str]]:
-    return sorted([(occurrences, char) for char, occurrences in char_counter.items()], reverse=True)
+def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
+    counter = Counter(text)
+    return sorted([(occurrences, char) for char, occurrences in counter.items()], reverse=True)
 
 
 def spread_char_across_slots(char_slots, char):
@@ -45,8 +46,7 @@ def spread_chars(char_slots, decreasing_char_occurences):
 
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
-        counter = Counter(text)
-        decreasing_char_occurences = get_decreasing_char_occurences(counter)
+        decreasing_char_occurences = get_decreasing_char_occurences(text)
         char_slots = [""] * decreasing_char_occurences[0][0]
 
         spread_chars(char_slots, decreasing_char_occurences)
