@@ -47,7 +47,7 @@ class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
         decreasing_char_occurences = get_decreasing_char_occurences(counter)
-        char_slots = ["" for _ in range(counter.most_common(1)[0][1])]
+        char_slots = [""] * decreasing_char_occurences[0][0]
 
         spread_chars(char_slots, decreasing_char_occurences)
 
