@@ -29,19 +29,15 @@ def detect_slots_overflow(char_slots, char_distance):
     return any(map(lambda x: len(x) < char_distance, char_slots[:-1]))
 
 
-def spread_chars(char_slots, decreasing_char_occurences):
-    slot = 0
-
-    for occurrences, char in decreasing_char_occurences:
-        slot = spread_char_consequently(char_slots, slot, char, occurrences)
-
-
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         decreasing_char_occurences = get_decreasing_char_occurences(text)
         char_slots = [""] * decreasing_char_occurences[0][0]
 
-        spread_chars(char_slots, decreasing_char_occurences)
+        slot = 0
+
+        for occurrences, char in decreasing_char_occurences:
+            slot = spread_char_consequently(char_slots, slot, char, occurrences)
 
         if detect_slots_overflow(char_slots, char_distance):
             return ""
