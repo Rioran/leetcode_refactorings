@@ -37,10 +37,10 @@ def detect_slots_overflow(char_slots, char_distance):
 
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
-        decreasing_char_occurences = get_decreasing_char_occurrences(text)
-        char_slots = CharSlots(slots_count=decreasing_char_occurences[0][0])
+        decreasing_char_occurrences = get_decreasing_char_occurrences(text)
+        char_slots = CharSlots(slots_count=decreasing_char_occurrences[0][0])
 
-        for occurrences, char in decreasing_char_occurences:
+        for occurrences, char in decreasing_char_occurrences:
             char_slots.spread_char_consequently(char, occurrences)
 
         if detect_slots_overflow(char_slots.slots, char_distance):
