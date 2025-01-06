@@ -20,16 +20,15 @@ class CharSlots:
         self.current_slot += 1
         self.current_slot = self.current_slot % (self.slots_count - self.skip_last_slot)
 
+    def spread_char_consequently(self, char, occurrences):
+        self.skip_last_slot = self.slots_count != occurrences
+
+        for _ in range(occurrences):
+            self.add_char_to_active_slot(char)
+
 
 def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
     return list(map(lambda x: x[::-1], Counter(text).most_common()))
-
-
-def spread_char_consequently(char_slots: CharSlots, char, occurrences):
-    char_slots.skip_last_slot = char_slots.slots_count != occurrences
-
-    for _ in range(occurrences):
-        char_slots.add_char_to_active_slot(char)
 
 
 def detect_slots_overflow(char_slots, char_distance):
@@ -42,7 +41,7 @@ class Solution:
         char_slots = CharSlots(slots_count=decreasing_char_occurences[0][0])
 
         for occurrences, char in decreasing_char_occurences:
-            spread_char_consequently(char_slots, char, occurrences)
+            char_slots.spread_char_consequently(char, occurrences)
 
         if detect_slots_overflow(char_slots.slots, char_distance):
             return ""
