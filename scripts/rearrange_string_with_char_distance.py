@@ -21,15 +21,15 @@ class Solution:
 
         slot = 0
         while increasing_char_occurences:
-            freq, char = increasing_char_occurences.pop()
-            if freq == top_occurrence:
+            occurrences, char = increasing_char_occurences.pop()
+            if occurrences == top_occurrence:
                 for i in range(top_occurrence):
                     slots[i] = slots[i] + char
             else:
-                while freq:
+                while occurrences:
                     slot = slot % (top_occurrence - 1)
                     slots[slot] = slots[slot] + char
-                    freq -= 1
+                    occurrences -= 1
                     slot += 1
         for i in range(top_occurrence - 1):  # up until last slot
             if len(slots[i]) < char_distance:
