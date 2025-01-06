@@ -8,8 +8,8 @@ If it is not possible to rearrange the string, return an empty string "".
 from collections import Counter
 
 
-def get_increasing_char_occurences(char_counter: Counter) -> list[tuple[int, str]]:
-    return sorted([(occurrences, char) for char, occurrences in char_counter.items()])
+def get_decreasing_char_occurences(char_counter: Counter) -> list[tuple[int, str]]:
+    return sorted([(occurrences, char) for char, occurrences in char_counter.items()], reverse=True)
 
 
 def spread_char_across_slots(char_slots, char):
@@ -32,11 +32,11 @@ def detect_slots_overflow(char_slots, char_distance):
     return any(map(lambda x: len(x) < char_distance, char_slots[:-1]))
 
 
-def spread_chars(char_slots, increasing_char_occurences):
+def spread_chars(char_slots, decreasing_char_occurences):
     slot = 0
     top_occurrence = len(char_slots)
 
-    for occurrences, char in increasing_char_occurences[::-1]:
+    for occurrences, char in decreasing_char_occurences:
         if occurrences == top_occurrence:
             spread_char_across_slots(char_slots, char)
         else:
@@ -46,10 +46,10 @@ def spread_chars(char_slots, increasing_char_occurences):
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = Counter(text)
-        increasing_char_occurences = get_increasing_char_occurences(counter)
+        decreasing_char_occurences = get_decreasing_char_occurences(counter)
         char_slots = ["" for _ in range(counter.most_common(1)[0][1])]
 
-        spread_chars(char_slots, increasing_char_occurences)
+        spread_chars(char_slots, decreasing_char_occurences)
 
         if detect_slots_overflow(char_slots, char_distance):
             return ""
