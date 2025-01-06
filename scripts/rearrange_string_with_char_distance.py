@@ -20,10 +20,9 @@ def spread_char_across_slots(char_slots, char):
 def spread_char_consequently(char_slots, slot, char, occurrences):
     current_slot = slot
 
-    while occurrences:
+    for _ in range(occurrences):
         current_slot = current_slot % (len(char_slots) - 1)
         char_slots[current_slot] = char_slots[current_slot] + char
-        occurrences -= 1
         current_slot += 1
 
     return current_slot
