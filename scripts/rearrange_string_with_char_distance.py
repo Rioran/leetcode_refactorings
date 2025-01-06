@@ -11,7 +11,7 @@ import collections
 class Solution:
     def rearrangeString(self, text: str, char_distance: int) -> str:
         counter = collections.Counter(text)
-        items = sorted([(freq, ch) for ch, freq in counter.items()])
+        items = sorted([(freq, char) for char, freq in counter.items()])
         maxFreq = items[-1][0]
         slots = ["" for _ in range(maxFreq)]
 
