@@ -29,12 +29,8 @@ def spread_char_consequently(char_slots, slot, char, occurrences, top_occurrence
     return current_slot
 
 
-def detect_slots_overflow(char_slots, top_occurrence, char_distance):
-    for i in range(top_occurrence - 1):  # up until last slot
-        if len(char_slots[i]) < char_distance:
-            return True
-
-    return False
+def detect_slots_overflow(char_slots, char_distance):
+    return any(map(lambda x: len(x) < char_distance, char_slots[:-1]))
 
 
 def spread_chars(char_slots, increasing_char_occurences, top_occurrence):
@@ -57,7 +53,7 @@ class Solution:
 
         spread_chars(char_slots, increasing_char_occurences, top_occurrence)
 
-        if detect_slots_overflow(char_slots, top_occurrence, char_distance):
+        if detect_slots_overflow(char_slots, char_distance):
             return ""
 
         return "".join(char_slots)
