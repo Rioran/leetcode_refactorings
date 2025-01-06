@@ -9,8 +9,7 @@ from collections import Counter
 
 
 def get_decreasing_char_occurences(text: str) -> list[tuple[int, str]]:
-    counter = Counter(text)
-    return sorted([(occurrences, char) for char, occurrences in counter.items()], reverse=True)
+    return list(map(lambda x: x[::-1], Counter(text).most_common()))
 
 
 def spread_char_consequently(char_slots, slot, char, occurrences):
